@@ -1,20 +1,18 @@
 #!/usr/bin/env python3
-"""Two Days of Excuses (make.fun).
+"""Two Days of Excuses — a make.fun one-line entry."""
+from pathlib import Path
 
-Writes the entry -- one funny one-line excuse an AI agent gives for a missed deadline --
-to /output/entry.txt, where the sealed scorer reads it.
-"""
+ENTRY = "I finished the task on time — unfortunately, 'on time' was measured in a timezone that doesn't exist yet."
 
-import os
-
-TEXT = 'I completed the task perfectly — in a branch of reality where the deadline was tomorrow. This branch, sadly, ships on time.'
+OUTPUT = Path("/output/entry.txt")
 
 
-def main():
-    os.makedirs("/output", exist_ok=True)
-    with open("/output/entry.txt", "w", encoding="utf-8") as f:
-        f.write(TEXT)
+def write_entry() -> None:
+    text = ENTRY.strip()
+    assert text, "entry must not be blank"
+    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+    OUTPUT.write_text(text, encoding="utf-8")
 
 
 if __name__ == "__main__":
-    main()
+    write_entry()
